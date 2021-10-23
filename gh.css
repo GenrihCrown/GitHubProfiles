@@ -1,0 +1,98 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+body {
+    font-family: Roboto, sans-serif;
+    height: 100vh;
+    background-color: #8BC6EC;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.card {
+    display: flex;
+    flex-direction: row;
+    max-width: 800px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 3rem;
+    border-radius: 10px;
+}
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.user-info {
+    margin-left: 5rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.user-info h2 {
+    margin: 0px;
+}
+
+.user-info ul {
+    display: flex;
+    list-style-type: none;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px;
+    width: 300px;
+    margin: 0px;
+}
+
+.user-info p {
+    margin: 0px;
+}
+
+#form #search {
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    outline: none;
+}
+
+.repo {
+    background-color: #1777a7;
+    display: inline-block;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    text-decoration: none;
+    font-size: 0.7rem;
+    border-radius: 2px;
+  }
+
+.notification {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 0px;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    animation: showError 0.5s;
+  }
+
+.notification p {
+    margin: 0px;
+
+}
+
+@keyframes showError {
+    0%{opacity: 0}
+    100%{opacity: 1}
+}
