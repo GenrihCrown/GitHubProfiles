@@ -1,67 +1,65 @@
-const APIURL = 'https://api.github.com/users/'
+const APIURL = "https://api.github.com/users/";
 
-const wrapper = document.getElementById('wrapper') //Получаем из связанного HTML элемент по его ID
-const form = document.getElementById('form') 
-const search = document.getElementById('search')
-const notification = document.getElementById('notification')
+const wrapper = document.getElementById("wrapper"); //Получаем из связанного HTML элемент по его ID
+const form = document.getElementById("form");
+const search = document.getElementById("search");
+const notification = document.getElementById("notification");
 
-form.addEventListener('submit', (e) => {
-    e.preventDefault();
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
-    const user = search.value
-    if (user) {
-        getUser(user)
-        search.value = ''
-    }
-
-})
+  const user = search.value;
+  if (user) {
+    getUser(user);
+    search.value = "";
+  }
+});
 
 //Пишем асинхронную функцию для получения данных пользователя с сервера
 async function getUser(userLogin) {
-    try {
-        const response = await fetch(APIURL + userLogin) //await ждет результат выполнения fetch и только потом идет далее
-        if (!response.ok) {
-            const error = ("Ошибка HTTP: " + response.status + response.statusText)
-            showError(error)}
-            else {
-                const userData = await response.json()
-                createUserCard(userData)
-                getRepos(userLogin) 
-            }
-        }
-        catch(e) {
-            console.log(e)
-        } 
+  try {
+    const response = await fetch(APIURL + userLogin); //await ждет результат выполнения fetch и только потом идет далее
+    const userData = await response.json();
+    if (!response.ok) {
+        const error = "Ошибка: " + response.status + response.statusText;
+        showError(error);   
     }
+    else {
+        createUserCard(userData);
+        getRepos(userLogin);
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
 
 //Пишем асинхронную функцию для получения данных по репозиториям с сервера
 async function getRepos(userLogin) {
-    const response = await fetch (APIURL + userLogin + '/repos')
-    const reposData = await response.json()
+  const response = await fetch(APIURL + userLogin + "/repos");
+  const reposData = await response.json();
 
-    addReposToCard(reposData) 
+  addReposToCard(reposData);
 }
 
 //Пишем функцию, которая добавляет данные по репозиториям в карточку пользователя
 function addReposToCard(repos) {
-    const reposEl = document.getElementById('repos')
+  const reposEl = document.getElementById("repos");
 
-    repos.forEach((repo) => {
-        const repoEl = document.createElement('a')
-        repoEl.classList.add('repo')
+  repos.forEach((repo) => {
+    const repoEl = document.createElement("a");
+    repoEl.classList.add("repo");
 
-        repoEl.href = repo.html_url
-        repoEl.target = '_blank'
-        repoEl.innerText = repo.name
+    repoEl.href = repo.html_url;
+    repoEl.target = "_blank";
+    repoEl.innerText = repo.name;
 
-        reposEl.appendChild(repoEl)
-        })
-    }
+    reposEl.appendChild(repoEl);
+  });
+}
 
 //Пишем функцию для создания карточки пользователя на странице
 function createUserCard(user) {
-
-    cardHTML = `
+  cardHTML = `
     <div class="card">
       <div class="image-container">
         <img src="${user.avatar_url}" alt="${user.name}" class="avatar">
@@ -78,19 +76,16 @@ function createUserCard(user) {
         <div class="repos" id="repos"></div>
       </div>
     </div>
-`
+`;
 
-wrapper.innerHTML = cardHTML
-
+  wrapper.innerHTML = cardHTML;
 }
 
-
 function showError(error) {
-
-    errorHTML = `
+  errorHTML = `
     <div id="notification" class="notification">
         <p>${error}</p>
     </div>
-    `
-    wrapper.innerHTML = errorHTML
+    `;
+  wrapper.innerHTML = errorHTML;
 }
